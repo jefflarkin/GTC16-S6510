@@ -3,3 +3,4 @@
 *.a
 core
 .*.sw*
+a.out
