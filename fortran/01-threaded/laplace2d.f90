@@ -49,7 +49,6 @@ program laplace
         error = max( error, abs(Anew(i,j)-A(i,j)) )
       end do
     end do
-!$omp end parallel do
 
     if(mod(iter,100).eq.0 ) write(*,'(i5,f10.6)'), iter, error
     iter = iter + 1
@@ -60,7 +59,6 @@ program laplace
         A(i,j) = Anew(i,j)
       end do
     end do
-!$omp end parallel do
 
   end do
 
