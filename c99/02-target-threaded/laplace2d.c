@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 
 #pragma omp target map(alloc:Anew) map(A)
 {
-#pragma omp parallel for shared(Anew, A) reduction(max:error)
+#pragma omp parallel for reduction(max:error)
         for( int j = 1; j < n-1; j++)
         {
             for( int i = 1; i < m-1; i++ )
@@ -65,7 +65,7 @@ int main(int argc, char** argv)
             }
         }
         
-#pragma omp parallel for shared(Anew, A)
+#pragma omp parallel for
         for( int j = 1; j < n-1; j++)
         {
             for( int i = 1; i < m-1; i++ )

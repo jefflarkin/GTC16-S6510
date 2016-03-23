@@ -53,7 +53,7 @@ int main(int argc, char** argv)
     {
         error = 0.0;
 
-#pragma omp target teams distribute parallel for collapse(2) shared(Anew, A) reduction(max:error)
+#pragma omp target teams distribute parallel for collapse(2) reduction(max:error)
         for( int j = 1; j < n-1; j++)
         {
             for( int i = 1; i < m-1; i++ )
@@ -64,7 +64,7 @@ int main(int argc, char** argv)
             }
         }
         
-#pragma omp target teams distribute parallel for collapse(2) shared(Anew, A)
+#pragma omp target teams distribute parallel for collapse(2)
         for( int j = 1; j < n-1; j++)
         {
             for( int i = 1; i < m-1; i++ )
