@@ -64,6 +64,8 @@ int main(int argc, char** argv)
                 error = fmax( error, fabs(Anew[j][i] - A[j][i]));
             }
         }
+// Next loop nest cannot start until all iterations of this one have completed
+#pragma omp barrier
         
 #pragma omp for 
         for( int j = 1; j < n-1; j++)
