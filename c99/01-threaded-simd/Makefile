@@ -1,6 +1,6 @@
 # Note: The expectation is that this makefile will be copied to 
 # the parent directory before building.
-include ../common.mk
+include ../../common.mk
 
 all: openmp.x
 
