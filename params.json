@@ -1,0 +1,6 @@
+{
+  "name": "GTC16-S6510",
+  "tagline": "Code examples from GTC16 S6510 - Targeting GPUs with OpenMP 4.5 and CLANG.",
+  "body": "GTC16 S6510 - Targeting GPUs with OpenMP 4.5 Device Directives\r\n==============================================================\r\nThe code examples were used during S6510 at GPU Technology Conference\r\n2016. They were tested against a prerelease version of the CLANG compiler,\r\nbuilt from source in March 2016. Due to the unreleased nature of this compiler,\r\nno guarantees are made that the code will continue to work with later\r\ncompilers. This code is released WITHOUT WARRANTY.\r\n\r\nAuthors:\r\n--------\r\n* James Beyer, NVIDIA <jbeyer@nvidia.com>\r\n* Jeff Larkin, NVIDIA <jlarkin@nvidia.com>\r\n\r\nLicense:\r\n-------\r\nApache 2.0\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
