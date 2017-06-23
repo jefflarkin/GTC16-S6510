@@ -52,7 +52,7 @@ int main(int argc, char** argv)
     {
         error = 0.0;
 
-#pragma omp target map(alloc:Anew) map(A)
+#pragma omp target map(alloc:Anew) map(A,error)
 {
 #pragma omp parallel for reduction(max:error)
         for( int j = 1; j < n-1; j++)

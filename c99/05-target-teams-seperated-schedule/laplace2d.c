@@ -53,7 +53,7 @@ int main(int argc, char** argv)
     {
         error = 0.0;
 
-#pragma omp target teams distribute 
+#pragma omp target teams distribute map(error)
         for( int j = 1; j < n-1; j++)
         {
 #pragma omp parallel for reduction(max:error) schedule(static,1)
