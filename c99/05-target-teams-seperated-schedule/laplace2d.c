@@ -48,7 +48,7 @@ int main(int argc, char** argv)
     double st = omp_get_wtime();
     int iter = 0;
     
-#pragma omp target data map(alloc:Anew) map(A)
+#pragma omp target data map(to:Anew) map(A)
     while ( error > tol && iter < iter_max )
     {
         error = 0.0;

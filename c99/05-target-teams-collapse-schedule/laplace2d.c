@@ -48,12 +48,12 @@ int main(int argc, char** argv)
     double st = omp_get_wtime();
     int iter = 0;
     
-#pragma omp target data map(alloc:Anew) map(A)
+#pragma omp target data map(to:Anew) map(tofrom:A)
     while ( error > tol && iter < iter_max )
     {
         error = 0.0;
 
-#pragma omp target teams distribute parallel for collapse(2) reduction(max:error) schedule(static,1) map(error)
+#pragma omp target teams distribute parallel for collapse(2) reduction(max:error) schedule(static,1) map(tofrom:error)
         for( int j = 1; j < n-1; j++)
         {
             for( int i = 1; i < m-1; i++ )
