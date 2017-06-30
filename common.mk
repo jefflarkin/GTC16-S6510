@@ -7,10 +7,14 @@ else
 ifneq (,$(findstring gcc,$(OPENMP_CC)))
 OPENMP_CFLAGS=-O3 -fopenmp
 else
+ifneq (,$(findstring icc,$(OPENMP_CC)))
+OPENMP_CFLAGS=-Ofast -qopenmp
+else
 OPENMP_CC=clang
 #OPENMP_CFLAGS=-O3 -fopenmp=libomp -fopenmp-targets=nvptx64sm_60-nvidia-linux -Wno-unknown-pragmas
 OPENMP_CFLAGS=-O2 -fopenmp -fopenmp-targets=nvptx64-nvidia-cuda --cuda-path=$(OLCF_CUDA_ROOT) 
 OPENMP_LDFLAGS=-lm
+endif
 endif
 endif
 endif
@@ -20,9 +24,13 @@ else
 ifneq (,$(findstring xlc++,$(OPENMP_CXX)))
 OPENMP_CXXFLAGS=-O3 -qsmp -qoffload
 else
+ifneq (,$(findstring icc,$(OPENMP_CXX)))
+OPENMP_CXXFLAGS=-Ofast -qopenmp
+else
 OPENMP_CXX=clang++
 OPENMP_CXXFLAGS=-O3 -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I$(CLANG_HOME)/include -fopenmp=libomp -fopenmp-targets=nvptx64sm_60-nvidia-linux -Wno-unknown-pragmas
 OPENMP_LDFLAGS=-lm
+endif
 endif
 endif
 ifneq (,$(findstring gfortran,$(OPENMP_FC)))

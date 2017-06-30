@@ -44,6 +44,11 @@ int main(int argc, char** argv)
     }
     
     printf("Jacobi relaxation Calculation: %d x %d mesh\n", n, m);
+#pragma omp parallel
+    {
+#pragma omp master
+      printf("Running on %d threads.\n", omp_get_num_threads());
+    }
     
     double st = omp_get_wtime();
     int iter = 0;
