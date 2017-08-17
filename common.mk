@@ -5,7 +5,7 @@ ifneq (,$(findstring xlc,$(OPENMP_CC)))
 OPENMP_CFLAGS=-O3 -qsmp -qoffload
 else
 ifneq (,$(findstring gcc,$(OPENMP_CC)))
-OPENMP_CFLAGS=-O3 -fopenmp
+OPENMP_CFLAGS=-O3 -fopenmp -foffload="-lm"
 else
 ifneq (,$(findstring icc,$(OPENMP_CC)))
 OPENMP_CFLAGS=-Ofast -qopenmp
@@ -19,7 +19,7 @@ endif
 endif
 endif
 ifneq (,$(findstring g++,$(OPENMP_CXX)))
-OPENMP_CXXFLAGS=-O3 -fopenmp
+OPENMP_CXXFLAGS=-O3 -fopenmp -foffload="-lm"
 else
 ifneq (,$(findstring xlc++,$(OPENMP_CXX)))
 OPENMP_CXXFLAGS=-O3 -qsmp -qoffload
@@ -34,7 +34,7 @@ endif
 endif
 endif
 ifneq (,$(findstring gfortran,$(OPENMP_FC)))
-OPENMP_FCFLAGS=-O3 -fopenmp
+OPENMP_FCFLAGS=-O3 -fopenmp -foffload="-lm"
 else
 ifneq (,$(findstring xlf,$(OPENMP_FC)))
 OPENMP_FCFLAGS=-O3 -qsmp -qoffload
