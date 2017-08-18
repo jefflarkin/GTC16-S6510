@@ -4,3 +4,5 @@
 core
 .*.sw*
 a.out
+*.txt
+*.job
