@@ -67,7 +67,7 @@ int main(int argc, char** argv)
             }
         }
         
-#pragma omp target teams distribut if(target:use_gpu)e
+#pragma omp target teams distribute if(target:use_gpu)
         for( int j = 1; j < n-1; j++)
         {
 #pragma omp parallel for
