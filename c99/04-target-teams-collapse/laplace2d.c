@@ -33,6 +33,8 @@ int main(int argc, char** argv)
     
     const double tol = 1.0e-6;
     double error     = 1.0;
+
+    int use_gpu = 0;
     
     memset(A, 0, n * m * sizeof(double));
     memset(Anew, 0, n * m * sizeof(double));
@@ -48,12 +50,12 @@ int main(int argc, char** argv)
     double st = omp_get_wtime();
     int iter = 0;
     
-#pragma omp target data map(alloc:Anew) map(A)
+#pragma omp target data map(to:Anew) map(A) if(use_gpu)
     while ( error > tol && iter < iter_max )
     {
         error = 0.0;
 
-#pragma omp target teams distribute parallel for collapse(2) reduction(max:error) map(error)
+#pragma omp target teams distribute parallel for collapse(2) reduction(max:error) map(error) if(target:use_gpu)
         for( int j = 1; j < n-1; j++)
         {
             for( int i = 1; i < m-1; i++ )
@@ -64,7 +66,7 @@ int main(int argc, char** argv)
             }
         }
         
-#pragma omp target teams distribute parallel for collapse(2)
+#pragma omp target teams distribute parallel for collapse(2) if(target:use_gpu)
         for( int j = 1; j < n-1; j++)
         {
             for( int i = 1; i < m-1; i++ )

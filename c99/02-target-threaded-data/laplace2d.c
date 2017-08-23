@@ -33,6 +33,8 @@ int main(int argc, char** argv)
     
     const double tol = 1.0e-6;
     double error     = 1.0;
+
+    int use_gpu = 1;
     
     memset(A, 0, n * m * sizeof(double));
     memset(Anew, 0, n * m * sizeof(double));
@@ -44,23 +46,20 @@ int main(int argc, char** argv)
     }
     
     printf("Jacobi relaxation Calculation: %d x %d mesh\n", n, m);
-#pragma omp parallel
-    {
-#pragma omp master
-      printf("Running on %d threads.\n", omp_get_num_threads());
-    }
     
     double st = omp_get_wtime();
     int iter = 0;
     
+#pragma omp target data map(to:Anew) map(A) if(use_gpu)
     while ( error > tol && iter < iter_max )
     {
         error = 0.0;
 
-#pragma omp parallel for shared(Anew, A) reduction(max:error)
+#pragma omp target map(error) if(use_gpu)
+{
+#pragma omp parallel for reduction(max:error)
         for( int j = 1; j < n-1; j++)
         {
-#pragma omp simd reduction(max:error)
             for( int i = 1; i < m-1; i++ )
             {
                 Anew[j][i] = 0.25 * ( A[j][i+1] + A[j][i-1]
@@ -72,12 +71,12 @@ int main(int argc, char** argv)
 #pragma omp parallel for
         for( int j = 1; j < n-1; j++)
         {
-#pragma omp simd
             for( int i = 1; i < m-1; i++ )
             {
                 A[j][i] = Anew[j][i];    
             }
         }
+} // OMP TARGET
 
         if(iter % 100 == 0) printf("%5d, %0.6f\n", iter, error);
         
