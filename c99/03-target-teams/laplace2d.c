@@ -34,7 +34,7 @@ int main(int argc, char** argv)
     const double tol = 1.0e-6;
     double error     = 1.0;
 
-    int use_gpu = 0;
+    int use_gpu = 1;
     
     memset(A, 0, n * m * sizeof(double));
     memset(Anew, 0, n * m * sizeof(double));

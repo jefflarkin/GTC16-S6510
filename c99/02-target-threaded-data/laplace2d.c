@@ -33,6 +33,8 @@ int main(int argc, char** argv)
     
     const double tol = 1.0e-6;
     double error     = 1.0;
+
+    int use_gpu = 1;
     
     memset(A, 0, n * m * sizeof(double));
     memset(Anew, 0, n * m * sizeof(double));
@@ -48,12 +50,12 @@ int main(int argc, char** argv)
     double st = omp_get_wtime();
     int iter = 0;
     
-#pragma omp target data map(to:Anew) map(A)
+#pragma omp target data map(to:Anew) map(A) if(use_gpu)
     while ( error > tol && iter < iter_max )
     {
         error = 0.0;
 
-#pragma omp target map(error)
+#pragma omp target map(error) if(use_gpu)
 {
 #pragma omp parallel for reduction(max:error)
         for( int j = 1; j < n-1; j++)
