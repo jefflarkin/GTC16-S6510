@@ -13,4 +13,4 @@ Jeff Larkin, NVIDIA <jlarkin@nvidia.com>
 
 License:
 -------
-Apache 2.0
+3-clause BSD. Please see LICENSE file.
